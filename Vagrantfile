@@ -56,7 +56,12 @@ class Vpn < Vagrant.plugin("2")
   name "VPN"
 
   command "start-vpn" do
-    require_relative "start_vpn"
+    require_relative "commands"
     StartVpn
+  end
+
+  command "ssh-config" do
+    require_relative "commands"
+    SshConfig
   end
 end

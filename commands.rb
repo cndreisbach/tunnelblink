@@ -25,3 +25,31 @@ class StartVpn < Vagrant.plugin(2, :command)
     end
   end
 end
+
+SSH_CONFIG = <<EOF
+### BEGIN TUNNELBLINK CONFIG ###
+Host tunnelblink
+  HostName 127.0.0.1
+  User vagrant
+  Port 5122
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile /Users/#{ENV['USER']}/.vagrant.d/insecure_private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+
+Host <host-behind-vpn>
+  ProxyCommand ssh -A tunnelblink nc %h %p
+### END TUNNELBLINK CONFIG ###
+
+EOF
+
+class SshConfig < Vagrant.plugin(2, :command)
+  def execute
+    puts "Add the following to your .ssh/config:\n\n"
+    puts SSH_CONFIG
+    puts "Replace <host-behind-vpn> with whatever host you want to add access to."
+  end
+end
+
