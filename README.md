@@ -30,6 +30,7 @@ vagrant start-vpn
 
 ## Using the proxy
 
+<<<<<<< HEAD
 Turning on the VPN will not get you fully on the network. You'll need to actually use the proxy to tunnel your HTTP and HTTPS connections through. 
 
 The host and port to use for your proxy is `localhost:5188`.
