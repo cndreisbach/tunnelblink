@@ -12,8 +12,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # config.vm.network :forwarded_port, guest: 80, host: 8080
-  # config.vm.network :forwarded_port, guest: 8888, host: 5188
-  # config.vm.network :forwarded_port, guest: 22, host: 5122
+  config.vm.network :forwarded_port, guest: 8888, host: 5188
+  config.vm.network :forwarded_port, guest: 22, host: 5122
 
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
@@ -52,9 +52,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # end
 end
 
-# class Vpn < Vagrant.plugin("2")
-#   name "VPN"
+class Vpn < Vagrant.plugin("2")
+  name "VPN"
 
-#   command "start-vpn" do
-#   end
-# end
+  command "start-vpn" do
+    require_relative "start_vpn"
+    StartVpn
+  end
+end

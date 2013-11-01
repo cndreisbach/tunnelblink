@@ -7,3 +7,5 @@ sudo sed -i.old \
 	-e '/ConnectPort 5222/d' \
 	-e '/ConnectPort 563/aConnectPort 5222' \
 	$CONF
+
+sudo /etc/init.d/tinyproxy restart
