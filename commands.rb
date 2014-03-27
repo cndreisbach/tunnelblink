@@ -17,9 +17,10 @@ class StartVpn < Vagrant.plugin(2, :command)
     puts "\nRunning: #{command}"
 
     with_target_vms do |vm|
-      vm.action(:ssh_run, ssh_run_command: "mv /vagrant/auth.txt /tmp/auth.txt")
-      vm.action(:ssh_run, ssh_run_command: "sudo pkill openvpn")
-      env = vm.action(:ssh_run, ssh_run_command: command)
+      ssh_opts = {extra_args: []}
+      vm.action(:ssh_run, ssh_run_command: "mv /vagrant/auth.txt /tmp/auth.txt", ssh_opts: ssh_opts)
+      vm.action(:ssh_run, ssh_run_command: "sudo pkill openvpn", ssh_opts: ssh_opts)
+      env = vm.action(:ssh_run, ssh_run_command: command, ssh_opts: ssh_opts)
       status = env[:ssh_run_exit_status] || 0
       return status
     end
@@ -52,4 +53,3 @@ class SshConfig < Vagrant.plugin(2, :command)
     puts "Replace <host-behind-vpn> with whatever host you want to add access to."
   end
 end
-
