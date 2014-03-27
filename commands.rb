@@ -16,7 +16,7 @@ class StartVpn < Vagrant.plugin(2, :command)
     command = "sudo nohup openvpn --config /etc/openvpn/vpn.conf --script-security 2 --up /etc/openvpn/update-resolv-conf --auth-user-pass /tmp/auth.txt &"
     puts "\nRunning: #{command}"
 
-    with_target_vms(nil, single_target: true) do |vm|
+    with_target_vms do |vm|
       vm.action(:ssh_run, ssh_run_command: "mv /vagrant/auth.txt /tmp/auth.txt")
       vm.action(:ssh_run, ssh_run_command: "sudo pkill openvpn")
       env = vm.action(:ssh_run, ssh_run_command: command)
