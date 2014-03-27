@@ -18,9 +18,9 @@ class StartVpn < Vagrant.plugin(2, :command)
 
     with_target_vms do |vm|
       ssh_opts = {extra_args: []}
-      vm.action(:ssh_run, ssh_run_command: "mv /vagrant/auth.txt /tmp/auth.txt", ssh_opts: ssh_opts)
-      vm.action(:ssh_run, ssh_run_command: "sudo pkill openvpn", ssh_opts: ssh_opts)
-      env = vm.action(:ssh_run, ssh_run_command: command, ssh_opts: ssh_opts)
+      vm.action(:ssh_run, ssh_run_command: "mv /vagrant/auth.txt /tmp/auth.txt", ssh_opts: {extra_args: []})
+      vm.action(:ssh_run, ssh_run_command: "sudo pkill openvpn", ssh_opts: {extra_args: []})
+      env = vm.action(:ssh_run, ssh_run_command: command, ssh_opts: {extra_args: []})
       status = env[:ssh_run_exit_status] || 0
       return status
     end
