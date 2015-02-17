@@ -51,17 +51,3 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   chef.json = { :mysql_password => "foo" }
   # end
 end
-
-class Vpn < Vagrant.plugin("2")
-  name "VPN"
-
-  command "start-vpn" do
-    require_relative "commands"
-    StartVpn
-  end
-
-  command "ssh-config" do
-    require_relative "commands"
-    SshConfig
-  end
-end
